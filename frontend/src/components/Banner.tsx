@@ -1,23 +1,24 @@
-import React from 'react'
-import Image from 'next/image'
-import bookbg from '../../public/bookBanner.jpg'
+
+import React from "react";
+import Image from "next/image";
+import bookbg from "../../public/bookBanner.jpg";
+import { BackgroundGradient } from "./ui/BackgroundDradient";
 
 function Banner() {
   return (
-    <div>
-      <div className='relative'>
-        <Image 
+    <div className="relative h-[35vh] w-[70vw] mx-auto p-2 mb-10">
+      <BackgroundGradient>
+        <Image
           src={bookbg}
-          alt='Banner'
-          className='h-[40vh] w-[70vw] object-cover object-left-bottom rounded-lg mx-auto'
+          alt="Banner"
+          className="h-[35vh] w-[70vw] object-cover object-left-bottom rounded-3xl mx-auto p-0.5"
         />
-        <h2
-          className='absolute top-1/2 -translate-y-1/2 left-[35vw] right-[18vw] text-5xl tracking-tighter line-clamp-2 font-medium text-amber-900 font-serif uppercase'
-        >Connect, Share and Trade your Favourite Reads...</h2>
-      </div>
-        
+      </BackgroundGradient>
+      <h2 className="absolute top-1/2 left-[25%]  z-10 -translate-y-1/2  text-5xl tracking-tight line-clamp-2 font-medium text-amber-900 font-serif uppercase">
+        Connect, Share and Trade your Favourite Reads...
+      </h2>
     </div>
-  )
+  );
 }
 
-export default Banner
+export default Banner;

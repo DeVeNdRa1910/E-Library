@@ -1,9 +1,24 @@
-import React from "react";
+'use client';
+import React, {useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
+
+// Define the type for the product
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+}
 
 function Navbar() {
+
+  
+
   return (
-    <nav className="flex items-center justify-between mb-[3vh] shadow-lg shadow-orange-500">
+    <nav className="flex items-center justify-between mb-[3vh] shadow-md shadow-orange-500">
       <div className="w-auto h-[5vw] ml-5">
         <Link href={"/"}>
           <div className="h-full w-full flex items-center justify-center">
@@ -11,6 +26,13 @@ function Navbar() {
             <span className="text-xl font-semibold uppercase tracking-tight text-orange-500">Dear Book</span>
           </div>
         </Link>
+      </div>
+      <div className="border-b border-slate-800">
+        <input 
+          type="text" 
+          placeholder="Search Books..."
+          className="bg-transparent focus:outline-none py-1 px-4"
+        />
       </div>
       <div className="mr-6 flex items-center justify-between gap-3">
         <button
