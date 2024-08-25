@@ -8,8 +8,12 @@ const router = express.Router();
 
 //routes
 
-//users
+//Users
 router.post("/users/register", createUser);
 router.post("/users/login", loginUser);
+
+
+//Books
+router.post("/books/create", loginUser);
 
 export default router;
