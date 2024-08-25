@@ -1,10 +1,23 @@
 import express from "express";
+import config from "./config/config";
+import globalErrorHandler from "./middlewares/globalErrorHandler";
+import router from "./routes/index.routes";
+import cors from "cors";
 
 const app = express();
 
-//Route
-app.get('/',(req, res, next)=>{
-  res.json({message: "Hello Jannhvi Panday"})
-})
+app.use(express.json())  // post(or get) all data from DB
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(cors({
+  origin: config.frontend,
+  credentials: true
+})) // allow all browser to use this resource , you have to put frontend URL
 
-export default app
+//Route
+app.use('/api', router)
+
+//globle error handler
+app.use(globalErrorHandler);
+
+
+export default app;
