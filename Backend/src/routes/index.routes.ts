@@ -17,9 +17,9 @@ router.post("/users/login", loginUser);
 
 
 //Books
-router.post("/books/create",upload.fields([
-  {name: 'coverImage', maxCount: 1},
-  {name: 'file',maxCount: 1}
+router.post("/books/create",  upload.fields([
+  { name: "coverImage", maxCount: 1 },
+  { name: "bookFiles", maxCount: 1 },
 ]), createBook);
 
 export default router;
