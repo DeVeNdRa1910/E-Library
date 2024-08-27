@@ -5,7 +5,7 @@ import path from 'node:path';
 
 const upload = multer({
   dest: path.resolve(__dirname, "../../public/data/uploads"),
-  limits: { fileSize: 1024*1024*30 }, // 30mb 30 * 1024 * 1024
+  limits: { fileSize: 1024*1024*10 }, // 10mb 10 * 1024 * 1024 cluodinary pr 10md se jyada allow nahi hai free plane me
 });
 
 export default upload;

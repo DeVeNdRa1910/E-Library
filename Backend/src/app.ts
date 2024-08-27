@@ -14,13 +14,8 @@ app.use(cors({
 })) // allow all browser to use this resource , you have to put frontend URL
 
 
-// increase server timeout time
-app.use((req, res, next) => {
-  res.setTimeout(120000, () => { // 120 seconds
-    res.status(408).send('Request Timeout');
-  });
-  next();
-});
+// // increase server timeout time
+
 
 //Route
 app.use('/api', router)
