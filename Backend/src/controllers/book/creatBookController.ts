@@ -43,7 +43,7 @@ export async function createBook(
       format: 'pdf'
     })
     
-    console.log(coverImageUploadResult, bookFileUploadResult); 
+    //console.log(coverImageUploadResult, bookFileUploadResult); 
 
     const newBook = new bookModel({
       title,
@@ -76,7 +76,7 @@ export async function createBook(
 
     // Return only the message and any other useful info, avoiding circular structure
     return res.status(502).json({
-      message: error.error.message || "Unknown error occurred while uploading",
+      message: error || "Unknown error occurred while uploading",
       success: false,
     });
   }
