@@ -4,6 +4,7 @@ import cloudinary from "../../config/cloudinary";
 import bookModel from "../../models/bookModel";
 import fs from 'node:fs';
 import { AuthRequest } from "../../middlewares/authenticate";
+import createHttpError from "http-errors";
 // import createHttpError from "http-errors";
 
 export async function createBook(
@@ -60,12 +61,10 @@ export async function createBook(
 
     //Delete temp files
     try {
-      await fs.promises.unlink(filePath)
-      await fs.promises.unlink(bookFilePath)
+      await fs.promises.unlink(filePath);
+      await fs.promises.unlink(bookFilePath);
     } catch (error) {
-      res.status(401).json({
-        message: "Not able to delete temprory file"
-      })
+      return next(createHttpError(500, "Failed to delete temporary files"));
     }
 
     return res.status(201).json({ 
@@ -78,11 +77,7 @@ export async function createBook(
     console.error("Upload Error:", error);
 
     // Return only the message and any other useful info, avoiding circular structure
-    return res.status(502).json({
-      message: error || "Unknown error occurred while uploading",
-      success: false,
-    });
+    return next(error);
   }
 
-  res.json({message: "Sorry cant do anything"})
 }
