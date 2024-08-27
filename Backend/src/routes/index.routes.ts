@@ -48,7 +48,6 @@ router.get(
 
 router.get(
   "/books/get-book/:bookId",
-  authenticate,
   getBook
 )
 
