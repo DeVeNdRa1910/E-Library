@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import cloudinary from "../../config/cloudinary";
 import bookModel from "../../models/bookModel";
 import fs from 'node:fs';
+import { AuthRequest } from "../../middlewares/authenticate";
 // import createHttpError from "http-errors";
 
 export async function createBook(
@@ -45,10 +46,12 @@ export async function createBook(
     
     //console.log(coverImageUploadResult, bookFileUploadResult); 
 
+    const _req = req as AuthRequest;
+
     const newBook = new bookModel({
       title,
       genre,
-      author: "66cb4af5aa20554134e34adc",
+      author: _req.userId,
       coverImage: coverImageUploadResult.secure_url,
       file: bookFileUploadResult.secure_url
     })
