@@ -9,7 +9,7 @@ export async function getBook(req: Request, res: Response, next: NextFunction){
 
   try {
     
-    const book = await bookModel.findOne({_id: bookId});
+    const book = await bookModel.findOne({_id: bookId}).populate("author","name");
 
     if(!book) {
       return next(createHttpError(404,"Book not found"));

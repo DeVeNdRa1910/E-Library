@@ -42,7 +42,7 @@ router.patch(
 );
 
 router.get(
-  "/books/get-all-books/:bookId",
+  "/books/get-all-books/",
   getAllBooks
 )
 

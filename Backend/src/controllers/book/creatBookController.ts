@@ -13,7 +13,7 @@ export async function createBook(
   next: NextFunction
 ) {
 
-  const {title, genre} = req.body;
+  const {title, genre, description} = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
   console.log("files: ", files);
 
@@ -52,6 +52,7 @@ export async function createBook(
     const newBook = new bookModel({
       title,
       genre,
+      description,
       author: _req.userId,
       coverImage: coverImageUploadResult.secure_url,
       file: bookFileUploadResult.secure_url

@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.news18.com'], 
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.news18.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com'
+      },
+    ], 
   },
 };
 
