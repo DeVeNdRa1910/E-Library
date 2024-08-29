@@ -13,8 +13,10 @@ async function BookList() {
 
   const bookData: Book[] = respData.data;
 
+  // bookData ko ane me time lagega to ham baki component ko wait kyu karvaye
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-7xl mx-auto mb-6">
       {bookData.map((book: Book) => {
         return (
           <div key={book._id}>
