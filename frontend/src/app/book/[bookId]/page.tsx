@@ -58,6 +58,9 @@ async function SingleBookPage({ params }: { params: { bookId: string } }) {
           sizes="100vw"
           style={{ width: "auto", height: "auto" }}
         />
+        <div>
+          
+        </div>
       </div>
     </div>
   );
