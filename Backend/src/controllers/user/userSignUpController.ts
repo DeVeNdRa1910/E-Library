@@ -38,15 +38,33 @@ export async function createUser(
       email: newUser.email,
     };
 
-    const token = jwt.sign(tokenData, config.jwtSecretKey as string, {
+    const accessToken = jwt.sign(tokenData, config.jwtSecretKey as string, {
       expiresIn: "2h",
     });
 
     const userCreatResponse = await newUser.save();
 
+    //store token in cookie storage on client side
+    // Set the cookie with the token (HTTP-only, secure, sameSite)
+
+    res.cookie("token", accessToken, {
+        httpOnly: true,
+        secure:  process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: '/'
+      })
+      .status(200)
+      .json({
+        message: "User Logged in successfully",
+        data: accessToken,
+        success: true,
+        error: false,
+      }
+    );
+
     res.status(201).json({
       data: userCreatResponse,
-      accessToken: token,
+      accessToken: accessToken,
       message: "User created",
       error: false,
       success: true,

@@ -44,7 +44,7 @@ function Navbar() {
         >Signup</Link>
         
         <Link
-          href={'/'}
+          href={'/signup'}
           className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
         >Signin</Link>
       </div>
