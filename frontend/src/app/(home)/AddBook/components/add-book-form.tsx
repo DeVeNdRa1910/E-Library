@@ -29,7 +29,7 @@ function AddBookForm({
     defaultValues: {
       title: "",
       genre: "",
-      auther: "",
+      author: "",
       description: "",
     },
   });
@@ -89,7 +89,7 @@ function AddBookForm({
           />
           <FormField
             control={form.control}
-            name="auther"
+            name="author"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Author</FormLabel>

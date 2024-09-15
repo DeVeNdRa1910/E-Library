@@ -14,6 +14,11 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
       return next(createHttpError(401, "Authorization token is required."));
     }
 
+    const tokenParts = token.split(" ");
+    if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
+      return next(createHttpError(400, "Invalid authorization format."));
+    }
+
     const parsedToken = token.split(" ")[1];
 
     try {

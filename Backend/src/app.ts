@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json())  // post(or get) all data from DB
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors({
-  origin: config.frontend,
+  origin: "http://localhost:3000",
   credentials: true
 })) // allow all browser to use this resource , you have to put frontend URL
 //store cooki on client side

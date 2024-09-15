@@ -38,7 +38,7 @@ export async function loginUser(
     };  
 
     const accessToken = jwt.sign(tokenData, config.jwtSecretKey as string, {
-      expiresIn: "1d",
+      expiresIn: "6hr",
     });
 
     //store token in cookie storage on client side
