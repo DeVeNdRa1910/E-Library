@@ -13,6 +13,8 @@ export async function loginUser(
   try {
     const { email, password } = req.body;
 
+    console.log(email, password);
+
     if (!email || !password) {
       const error = createHttpError(400, "Both fields are mendatory");
       return next(error);
@@ -33,17 +35,29 @@ export async function loginUser(
     const tokenData = {
       id: user._id,
       email: user.email,
-    };
+    };  
 
-    const accessToken = jwt.sign(tokenData, config.jwtSecretKey as string, {'expiresIn': '1d'})
-
-    res.status(201).json({
-      data: user,
-      accessToken: accessToken,
-      message: "User logged in successfully",
-      error: false,
-      success: true,
+    const accessToken = jwt.sign(tokenData, config.jwtSecretKey as string, {
+      expiresIn: "1d",
     });
+
+    //store token in cookie storage on client side
+    // Set the cookie with the token (HTTP-only, secure, sameSite)
+
+    res.cookie("token", accessToken, {
+        httpOnly: true,
+        secure:  process.env.NODE_ENV === "production",
+        sameSite: "none",
+        path: '/'
+      })
+      .status(200)
+      .json({
+        message: "User Logged in successfully",
+        data: accessToken,
+        success: true,
+        error: false,
+      }
+    );
 
   } catch (error: any) {
     const errorObj = {

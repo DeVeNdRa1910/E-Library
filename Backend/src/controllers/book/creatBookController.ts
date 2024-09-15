@@ -15,7 +15,11 @@ export async function createBook(
 
   const {title, genre, description} = req.body;
   const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  if (!files.coverImage || !files.bookFiles) {
+    return next(createHttpError(400, "Missing cover image or book file"));
+  }
   console.log("files: ", files);
+
 
   const coverImageMimeType = files.coverImage[0].mimetype.split('/').at(-1);
   const fileName = files.coverImage[0].filename;
@@ -70,7 +74,7 @@ export async function createBook(
 
     return res.status(201).json({ 
       id: newBook._id,
-      message: "Book Upload Successful",
+      message: "Book Uploaded Successful",
       bookUploadResp
     });
 

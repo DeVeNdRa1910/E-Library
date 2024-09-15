@@ -2,6 +2,7 @@
 import React, {useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import ThemeToggle from "./DarkMode";
 
 // Define the type for the product
 interface Product {
@@ -14,7 +15,6 @@ interface Product {
 }
 
 function Navbar() {
-
   
 
   return (
@@ -35,13 +35,18 @@ function Navbar() {
         />
       </div>
       <div className="mr-6 flex items-center justify-between gap-3">
-        <button
-          className="h-10 rounded-md border border-orange-500 px-4 py-1 text-sm font-medium text-orange-500 transition-all hover:border-white hover:text-white hover:bg-orange-500 active:scale-95"
-        >Sign in</button>
+
+        <ThemeToggle />
+
+        <Link
+          href={'/signin'}
+          className="h-8 rounded-md border border-orange-500 px-4 py-1 text-sm font-medium text-orange-500 transition-all hover:border-white hover:text-white hover:bg-orange-500 active:scale-95"
+        >Signup</Link>
         
-        <button
-          className="h-10 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
-        >Sign up</button>
+        <Link
+          href={'/'}
+          className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
+        >Signin</Link>
       </div>
     </nav>
   );

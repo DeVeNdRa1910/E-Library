@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Book } from "@/types";
 import DownloadButton from "./components/DownloadButton";
 import Link from "next/link";
+import DeleteButton from "./components/DeleteButton";
 
 async function SingleBookPage({ params }: { params: { bookId: string } }) {
   // console.log('params', params);
@@ -58,8 +59,14 @@ async function SingleBookPage({ params }: { params: { bookId: string } }) {
           sizes="100vw"
           style={{ width: "auto", height: "auto" }}
         />
-        <div>
-          
+        <div className="w-full my-4">
+          <Link
+            href={'/EditBook'}
+            className="w-full text-center hover:text-orange-500 transition-all border rounded-lg p-2 my-4"
+          >
+            Edit
+          </Link>
+          <DeleteButton />
         </div>
       </div>
     </div>

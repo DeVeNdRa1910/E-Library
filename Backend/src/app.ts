@@ -3,6 +3,7 @@ import config from "./config/config";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import router from "./routes/index.routes";
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -12,9 +13,10 @@ app.use(cors({
   origin: config.frontend,
   credentials: true
 })) // allow all browser to use this resource , you have to put frontend URL
+//store cooki on client side
+app.use(cookieParser());
 
-
-// // increase server timeout time
+// increase server timeout time
 
 
 //Route

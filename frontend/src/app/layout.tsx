@@ -18,12 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="dark">
+      <body className={inter.className} >
         <StoreProvider>
           <Navbar />
-          {children}
-          <Footer/>
+          <div className="min-h-screen">
+            {children}
+          </div>
+          <Footer />
         </StoreProvider>
       </body>
     </html>
