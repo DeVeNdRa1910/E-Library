@@ -4,7 +4,7 @@ import globalErrorHandler from "./middlewares/globalErrorHandler";
 import router from "./routes/index.routes";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
-
+// extract app from express()
 const app = express();
 
 app.use(express.json())  // post(or get) all data from DB
