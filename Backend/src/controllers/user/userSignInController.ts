@@ -41,6 +41,13 @@ export async function loginUser(
       expiresIn: "6hr",
     });
 
+    const userData={
+      name: user.name,
+      userId: user._id,
+      email: user.email,
+      token: accessToken
+    }
+
     //store token in cookie storage on client side
     // Set the cookie with the token (HTTP-only, secure, sameSite)
 
@@ -54,6 +61,7 @@ export async function loginUser(
       .json({
         message: "User Logged in successfully",
         data: accessToken,
+        userData,
         success: true,
         error: false,
       }

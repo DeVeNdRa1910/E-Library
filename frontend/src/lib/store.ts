@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import bookSlice from './store/features/books/bookSlice';
+import usersSlice from './store/features/users/usersSlice';
 
 
 //Dont do this in nextjs we have creat store on per request
@@ -13,6 +14,7 @@ function createStore(){
   return configureStore({
     reducer: {
       books: bookSlice,
+      user: usersSlice
     },
   });
 } 

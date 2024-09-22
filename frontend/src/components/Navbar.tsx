@@ -1,8 +1,13 @@
-'use client';
-import React, {useState, useEffect } from "react";
+"use client";
+import React from "react";
 import Link from "next/link";
-import axios from "axios";
 import ThemeToggle from "./DarkMode";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/lib/store/features/hooks/hooks";
+import { Button } from "./ui/button";
+import { removeUser } from "@/lib/store/features/users/usersSlice";
 
 // Define the type for the product
 interface Product {
@@ -15,7 +20,17 @@ interface Product {
 }
 
 function Navbar() {
-  
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  console.log(user);
+
+  const handleLogout = () => {
+    dispatch(removeUser());
+    localStorage.removeItem("token");
+
+    
+
+  };
 
   return (
     <nav className="flex items-center justify-between mb-[3vh] shadow-md shadow-orange-500">
@@ -23,30 +38,46 @@ function Navbar() {
         <Link href={"/"}>
           <div className="h-full w-full flex items-center justify-center">
             <Logo />
-            <span className="text-xl font-semibold uppercase tracking-tight text-orange-500">Dear Book</span>
+            <span className="text-xl font-semibold uppercase tracking-tight text-orange-500">
+              Dear Book
+            </span>
           </div>
         </Link>
       </div>
       <div className="border-b border-slate-800">
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Search Books..."
           className="bg-transparent focus:outline-none py-1 px-4"
         />
       </div>
       <div className="mr-6 flex items-center justify-between gap-3">
-
         <ThemeToggle />
 
-        <Link
-          href={'/signin'}
-          className="h-8 rounded-md border border-orange-500 px-4 py-1 text-sm font-medium text-orange-500 transition-all hover:border-white hover:text-white hover:bg-orange-500 active:scale-95"
-        >Signup</Link>
-        
-        <Link
-          href={'/signup'}
-          className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
-        >Signin</Link>
+        {user.token.length > 0 ? (
+          <Button
+            onClick={handleLogout}
+            className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
+          >
+            Logout
+          </Button>
+        ) : (
+          <div>
+            <Link
+              href={"/signin"}
+              className="h-8 rounded-md border border-orange-500 px-4 py-1 text-sm font-medium text-orange-500 transition-all hover:border-white hover:text-white hover:bg-orange-500 active:scale-95"
+            >
+              Signin
+            </Link>
+
+            <Link
+              href={"/signup"}
+              className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"
+            >
+              Signup
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
