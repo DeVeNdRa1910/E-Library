@@ -15,6 +15,8 @@ app.use(cors({
 })) // allow all browser to use this resource , you have to put frontend URL
 //store cooki on client side
 app.use(cookieParser());
+console.log(process.env.FRONTEND_URL);
+
 
 // increase server timeout time
 
