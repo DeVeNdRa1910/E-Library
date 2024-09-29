@@ -74,7 +74,7 @@ function Login() {
         </CardFooter>
         <div className="my-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to={"/resister"} className="underline">
+          <Link to={"/auth/resister"} className="underline">
             Sign up
           </Link>
         </div>
