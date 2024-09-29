@@ -27,9 +27,6 @@ function Navbar() {
   const handleLogout = () => {
     dispatch(removeUser());
     localStorage.removeItem("token");
-
-    
-
   };
 
   return (
