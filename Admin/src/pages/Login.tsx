@@ -29,7 +29,7 @@ function Login() {
         title: "Authentication",
         description: "Login successful",
       });
-      navigate("/home/");
+      navigate("/home");
     },
     onError: () => {
       toast({
