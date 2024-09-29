@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema<UserTypes>({
   password:{
     type: String,
     required: true,
+  },
+  role:{
+    type: "string",
+    default: "user"
   }
 },{timestamps: true})
 

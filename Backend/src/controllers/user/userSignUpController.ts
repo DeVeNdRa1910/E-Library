@@ -11,9 +11,9 @@ export async function createUser(
   next: NextFunction
 ) {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       const error = createHttpError(400, "All fields are mendatory");
       return next(error);
     }
@@ -30,6 +30,7 @@ export async function createUser(
     const newUser = await userModel.create({
       name: name,
       email: email,
+      role: role,
       password: hashedPassword,
     });
 

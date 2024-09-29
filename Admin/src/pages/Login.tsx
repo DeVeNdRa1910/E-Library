@@ -14,6 +14,7 @@ import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/http/api";
 import { useMutation} from "react-query";
+import { LoaderCircle } from "lucide-react";
 
 function Login() {
   const { toast } = useToast();
@@ -33,6 +34,7 @@ function Login() {
     },
     onError: () => {
       toast({
+        variant: "destructive",
         title: "Authentication",
         description: "Login failed",
       });
@@ -45,6 +47,7 @@ function Login() {
 
     if (!email || !password) {
       toast({
+        variant: "destructive",
         title: "Authentication",
         description: "All fields are required",
       });
@@ -80,8 +83,9 @@ function Login() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleLoginSubmit} className="w-full">
-            Login
+          <Button onClick={handleLoginSubmit} className="w-full" disabled={mutation.isLoading} >
+            {mutation.isLoading && <LoaderCircle className="animate-spin size-10" /> }
+            <span className="ml-12">Login</span>
           </Button>
         </CardFooter>
         <div className="my-4 text-center text-sm">

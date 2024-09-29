@@ -11,9 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { register } from "@/http/api";
+import { LoaderCircle } from "lucide-react";
 import { useRef } from "react";
 import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
+
 
 function Register() {
   const { toast } = useToast();
@@ -58,13 +60,16 @@ function Register() {
 
     if (!name || !email || !password || !confirmPassword) {
       toast({
+        variant: "destructive",
         title: "Authentication",
         description: "All fields are required",
       });
       return;
     }
 
-    mutation.mutate({ name, email, password });
+    const role = "admin"
+
+    mutation.mutate({ name, email, password, role });
   };
 
   return (
@@ -112,8 +117,9 @@ function Register() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleResisterSubmit} className="w-full">
-            Resister
+          <Button onClick={handleResisterSubmit} className="w-full" disabled={mutation.isLoading}>
+          {mutation.isLoading && <LoaderCircle className="animate-spin size-10" /> }
+          <span className="ml-12">Regidter</span>
           </Button>
         </CardFooter>
         <div className="my-4 text-center text-sm">
