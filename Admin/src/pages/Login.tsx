@@ -10,36 +10,48 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
 import { useRef } from "react";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "@/http/api";
+import { useMutation} from "react-query";
 
 function Login() {
   const { toast } = useToast();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  //jab server pr data bhejana ho to mutation ka use karte hai
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      toast({
+        title: "Authentication",
+        description: "Login successful",
+      });
+      navigate("/home/");
+    },
+    onError: () => {
+      toast({
+        title: "Authentication",
+        description: "Login failed",
+      });
+    },
+  });
 
   const handleLoginSubmit = async () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
-    try {
-      await axios.post("http://localhost:5000/api/users/login", {
-        email: email,
-        password: password,
-      });
+    if (!email || !password) {
       toast({
         title: "Authentication",
-        description: "Login successfull",
+        description: "All fields are required",
       });
-      navigate('/home/')
-    } catch (error) {
-      toast({
-        title: "Authentication",
-        description: "Login Failed",
-      });
+      return;
     }
+
+    mutation.mutate({ email, password });
   };
 
   return (

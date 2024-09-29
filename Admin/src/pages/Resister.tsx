@@ -10,8 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
+import { resister } from "@/http/api";
 import { useRef } from "react";
+import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 
 function Resister() {
@@ -22,6 +23,23 @@ function Resister() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate()
+
+  const mutation = useMutation({
+    mutationFn: resister,
+    onSuccess: () => {
+      toast({
+        title: "Authentication",
+        description: "Signup successful",
+      });
+      navigate("/home/");
+    },
+    onError: () => {
+      toast({
+        title: "Authentication",
+        description: "Signup failed",
+      });
+    },
+  });
 
   const handleResisterSubmit = async () => {
     const name = nameRef.current?.value;
@@ -39,24 +57,15 @@ function Resister() {
       return;
     }
 
-    try {
-      await axios.post("http://localhost:5000/api/users/register", {
-        name: name,
-        email: email,
-        password: password,
-      });
+    if (!name || !email || !password || !confirmPassword) {
       toast({
         title: "Authentication",
-        description: "Login successfull",
+        description: "All fields are required",
       });
-      navigate('/home/')
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      toast({
-        title: "Authentication",
-        description: error.response.data.message,
-      });
+      return;
     }
+
+    mutation.mutate({name, email, password})
   };
 
   return (

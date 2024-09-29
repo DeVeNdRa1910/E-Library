@@ -5,7 +5,6 @@ import { RouterProvider } from 'react-router-dom'
 import router from '@/router.tsx'
 import { Toaster } from './components/ui/toaster'
 import {
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
