@@ -40,12 +40,11 @@ function Resister() {
     }
 
     try {
-      const resp = await axios.post("http://localhost:5000/api/users/register", {
+      await axios.post("http://localhost:5000/api/users/register", {
         name: name,
         email: email,
         password: password,
       });
-      console.log(resp.data);
       toast({
         title: "Authentication",
         description: "Login successfull",

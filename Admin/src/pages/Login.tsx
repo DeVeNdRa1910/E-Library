@@ -25,7 +25,7 @@ function Login() {
     const password = passwordRef.current?.value;
 
     try {
-      const resp = await axios.post("http://localhost:5000/api/users/login", {
+      await axios.post("http://localhost:5000/api/users/login", {
         email: email,
         password: password,
       });
