@@ -16,6 +16,7 @@ import { login } from "@/http/api";
 import { useMutation} from "react-query";
 import { LoaderCircle } from "lucide-react";
 import useTokenStore from "@/store/store";
+import Cookies from "js-cookie";
 
 function Login() {
   const { toast } = useToast();
@@ -36,7 +37,11 @@ function Login() {
       });
 
       setToken(resp.data.data);
-
+      Cookies.set('token', resp.data.data, { expires: 7, secure: true }); //store token in cookie storage
+      /* 
+      const token = Cookies.get('token'); // to get token
+      Cookies.remove('token'); // to remove token while uninstalling
+      */
       navigate("/home");
     },
     onError: () => {

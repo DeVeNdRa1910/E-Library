@@ -7,6 +7,7 @@ export interface TokenStore {
 }
 
 // persist karne se token localStorage me save ho jata hai
+// devTools se zustand ko redux devtools(chrome extension) pr watch kar sakte hai
 
 const useTokenStore = create<TokenStore>()(
   devtools(

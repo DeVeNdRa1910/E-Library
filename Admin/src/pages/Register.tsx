@@ -11,11 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { register } from "@/http/api";
+import useTokenStore from "@/store/store";
 import { LoaderCircle } from "lucide-react";
 import { useRef } from "react";
 import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
-
+import Cookies from 'js-cookie';
 
 function Register() {
   const { toast } = useToast();
@@ -24,14 +25,17 @@ function Register() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const setToken = useTokenStore(state => state.setToken)
 
   const mutation = useMutation({
     mutationFn: register,
-    onSuccess: () => {
+    onSuccess: (resp: any) => {
       toast({
         title: "Authentication",
         description: "Signup successful",
       });
+      setToken(resp.data.data);
+      Cookies.set('token', resp.data.data, { expires: 7, secure: true }); //store token in cookie storage
       navigate("/home");
     },
     onError: () => {
@@ -119,7 +123,7 @@ function Register() {
         <CardFooter>
           <Button onClick={handleResisterSubmit} className="w-full" disabled={mutation.isLoading}>
           {mutation.isLoading && <LoaderCircle className="animate-spin size-10" /> }
-          <span className="ml-12">Regidter</span>
+          <span className="">Regidter</span>
           </Button>
         </CardFooter>
         <div className="my-4 text-center text-sm">
