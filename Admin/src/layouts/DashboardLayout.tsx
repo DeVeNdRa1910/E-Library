@@ -1,4 +1,4 @@
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import {
   Bell,
   CircleUser,
@@ -22,13 +22,19 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Cookies from "js-cookie";
 
 function DashboardLayout() {
-
-  const token = Cookies.get('token')
+  const navigate = useNavigate();
+  const token = Cookies.get('token');
   console.log(token);
   
   if(!token){
     //if user dont have token
     return <Navigate to={'/auth/login'} />
+  }
+
+  const logoutHandler = () => {
+    Cookies.remove('token');
+    navigate('/auth/login')
+    return ;
   }
 
   return (
@@ -129,7 +135,9 @@ function DashboardLayout() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button variant={'link'} onClick={logoutHandler} >Logout</Button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>

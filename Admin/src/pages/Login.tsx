@@ -15,7 +15,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/http/api";
 import { useMutation} from "react-query";
 import { LoaderCircle } from "lucide-react";
-import useTokenStore from "@/store/store";
 import Cookies from "js-cookie";
 
 function Login() {
@@ -23,7 +22,6 @@ function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const setToken = useTokenStore(state => state.setToken)
 
   //jab server pr data bhejana ho to mutation ka use karte hai
   const mutation = useMutation({
@@ -35,8 +33,6 @@ function Login() {
         title: "Authentication",
         description: "Login successful",
       });
-
-      setToken(resp.data.data);
       Cookies.set('token', resp.data.data, { expires: 7, secure: true }); //store token in cookie storage
       /* 
       const token = Cookies.get('token'); // to get token

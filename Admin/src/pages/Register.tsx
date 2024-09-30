@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { register } from "@/http/api";
-import useTokenStore from "@/store/store";
 import { LoaderCircle } from "lucide-react";
 import { useRef } from "react";
 import { useMutation } from "react-query";
@@ -25,7 +24,6 @@ function Register() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const setToken = useTokenStore(state => state.setToken)
 
   const mutation = useMutation({
     mutationFn: register,
@@ -34,7 +32,6 @@ function Register() {
         title: "Authentication",
         description: "Signup successful",
       });
-      setToken(resp.data.data);
       Cookies.set('token', resp.data.data, { expires: 7, secure: true }); //store token in cookie storage
       navigate("/home");
     },
