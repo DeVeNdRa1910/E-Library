@@ -15,21 +15,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/http/api";
 import { useMutation} from "react-query";
 import { LoaderCircle } from "lucide-react";
+import useTokenStore from "@/store/store";
 
 function Login() {
   const { toast } = useToast();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const setToken = useTokenStore(state => state.setToken)
 
   //jab server pr data bhejana ho to mutation ka use karte hai
   const mutation = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (resp: any) => {
+      console.log("User Data", resp.data);
+      
       toast({
         title: "Authentication",
         description: "Login successful",
       });
+
+      setToken(resp.data.data);
+
       navigate("/home");
     },
     onError: () => {
@@ -85,7 +92,7 @@ function Login() {
         <CardFooter>
           <Button onClick={handleLoginSubmit} className="w-full" disabled={mutation.isLoading} >
             {mutation.isLoading && <LoaderCircle className="animate-spin size-10" /> }
-            <span className="ml-12">Login</span>
+            <span className="">Login</span>
           </Button>
         </CardFooter>
         <div className="my-4 text-center text-sm">
