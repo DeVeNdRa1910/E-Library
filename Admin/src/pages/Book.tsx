@@ -1,7 +1,6 @@
 import { getBooks } from "@/http/api";
 import { useQuery } from "react-query";
 import { MoreHorizontal, Loader } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -49,7 +48,14 @@ function Book() {
   const books = data?.data?.data || [];
 
   if (isError) {
-    return <div>Error: {error?.message}</div>;
+    console.log(error);
+    
+    return <div>Error: Something went wrong</div>;
+  }
+
+  function deleteBookHandler(id: string) {
+    alert(`Book Deleted ${id}`);
+    
   }
 
   return (
@@ -67,7 +73,9 @@ function Book() {
           </BreadcrumbList>
         </Breadcrumb>
 
-        <Button>Add Book</Button>
+        <Link to={'create/'}>
+          <Button>Add Book</Button>
+        </Link>
       </div>
       <Card x-chunk="dashboard-06-chunk-0" className="mt-4 w-full ">
         <CardHeader>
@@ -144,7 +152,9 @@ function Book() {
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
                           <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Button variant={'destructive'} onClick={()=>{deleteBookHandler(book._id)}}>Delete</Button>
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
