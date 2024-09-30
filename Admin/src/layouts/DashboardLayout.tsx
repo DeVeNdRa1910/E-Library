@@ -1,17 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import {
   Bell,
   CircleUser,
   HomeIcon,
-  LineChart,
   Menu,
   Package,
   Package2,
   Search,
-  ShoppingCart,
-  Users,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,8 +19,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Cookies from "js-cookie";
 
 function DashboardLayout() {
+
+  const token = Cookies.get('token')
+  console.log(token);
+  
+  if(!token){
+    //if user dont have token
+    return <Navigate to={'/auth/login'} />
+  }
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
