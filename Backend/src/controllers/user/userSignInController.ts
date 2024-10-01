@@ -38,7 +38,7 @@ export async function loginUser(
     };  
 
     const accessToken = jwt.sign(tokenData, config.jwtSecretKey as string, {
-      expiresIn: "6hr",
+      expiresIn: "6 hr",
     });
 
     const userData={

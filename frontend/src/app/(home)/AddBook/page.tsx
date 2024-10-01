@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import AddBookForm, { FormValuse } from "./components/add-book-form";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 
 function AddBook() {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false)
 
   const formSubmitHandler = async (values: FormValuse) => {
     // console.log(values);
@@ -25,13 +26,14 @@ function AddBook() {
     formData.append("author", values.author);
     formData.append("description", values.description);
     formData.append("coverImage", (values.coverImage as FileList)[0]);
-    formData.append("bookFiles", (values.file as FileList)[0]);
+    formData.append("file", (values.file as FileList)[0]);
 
     const getToken = () => {
       const token = localStorage.getItem("token") || "";
       // console.log(token);
       return token;
     };
+    setIsLoading(true)
 
     try {
       const response = await axios.post(
@@ -50,6 +52,7 @@ function AddBook() {
         description: "Book uploaded success fully",
       });
       console.log("Book created successfully:", response);
+      setIsLoading(false)
     } catch (error) {
       toast({
         variant: "destructive",
@@ -57,12 +60,13 @@ function AddBook() {
         description: "Book Upload failed.",
       });
       console.error("Error creating book:", error);
+      setIsLoading(false)
     }
   };
 
   return (
     <div>
-      <AddBookForm onSubmit={formSubmitHandler} />
+      <AddBookForm onSubmit={formSubmitHandler} isLaoding={isLoading} />
     </div>
   );
 }

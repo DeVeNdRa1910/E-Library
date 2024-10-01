@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Book } from "@/types";
 
 function BookCard({ book }: { book: Book }) {
+
+
   return (
     <div>
       <CardContainer className="inter-var">
@@ -37,7 +39,7 @@ function BookCard({ book }: { book: Book }) {
                 translateZ="60"
                 className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
               >
-                {book.author.name}
+                {book.author ? book.author.name : "abc"}
               </CardItem>
               {/* card me description nahi likhna hai */}
 

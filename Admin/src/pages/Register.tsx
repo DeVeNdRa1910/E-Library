@@ -33,6 +33,7 @@ function Register() {
         description: "Signup successful",
       });
       Cookies.set('token', resp.data.data, { expires: 7, secure: true }); //store token in cookie storage
+      localStorage.setItem("token", resp.data.data);
       navigate("/home");
     },
     onError: () => {

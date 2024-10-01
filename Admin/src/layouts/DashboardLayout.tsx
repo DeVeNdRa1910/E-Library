@@ -19,21 +19,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Cookies from "js-cookie";
 import ThemeToggle from "@/components/DarkMode";
+import getToken from "@/lib/getToken";
 
 function DashboardLayout() {
   const navigate = useNavigate();
-  const token = Cookies.get('token');
-  // console.log(token);
+  const token = getToken();
+  console.log(token);
   
-  if(!token){
+  if(token === ""){
     //if user dont have token
     return <Navigate to={'/auth/login'} />
   }
-
+  
   const logoutHandler = () => {
-    Cookies.remove('token');
+    localStorage.removeItem('token');
     navigate('/auth/login')
     return ;
   }

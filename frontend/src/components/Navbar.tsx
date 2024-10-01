@@ -20,9 +20,9 @@ interface Product {
 }
 
 function Navbar() {
-  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  console.log(user);
+
+  const token = localStorage.getItem('token')
 
   const handleLogout = () => {
     dispatch(removeUser());
@@ -51,7 +51,7 @@ function Navbar() {
       <div className="mr-6 flex items-center justify-between gap-3">
         <ThemeToggle />
 
-        {user.token.length > 0 ? (
+        { token ? (
           <Button
             onClick={handleLogout}
             className="h-8 rounded-md border border-white px-4 py-1 text-sm font-medium text-white bg-orange-500  transition-all hover:border-orange-500 hover:text-orange-500 hover:bg-black active:scale-95"

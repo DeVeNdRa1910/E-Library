@@ -1,10 +1,9 @@
-
-import Cookies from 'js-cookie'
 import { Navigate, Outlet } from 'react-router-dom'
+import getToken from '@/lib/getToken';
 
 function AuthLayout() {
 
-  const token = Cookies.get('token');
+  const token = getToken();
 
   if(token){
     return <Navigate to={'/home'} />

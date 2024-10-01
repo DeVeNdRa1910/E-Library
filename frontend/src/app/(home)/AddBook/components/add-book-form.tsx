@@ -16,13 +16,15 @@ import { bookSchema } from "@/lib/validators/bookSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
  
 export type FormValuse = z.input<typeof bookSchema>;
 
 function AddBookForm({
-  onSubmit,
+  onSubmit, isLaoding
 }: {
   onSubmit: (formValues: FormValuse) => void;
+  isLaoding: boolean;
 }) {
   const form = useForm<z.infer<typeof bookSchema>>({
     resolver: zodResolver(bookSchema),
@@ -129,7 +131,7 @@ function AddBookForm({
           />
   
           <Button type="submit" className="w-full bg-orange-500 text-white font-semibold text-lg hover:bg-orange-600">
-            Add Book
+            {isLaoding ? <Loader2 className="animate-spin" /> : "Add Book" }
           </Button>
         </form>
       </Form>
