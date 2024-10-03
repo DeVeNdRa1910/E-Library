@@ -57,10 +57,10 @@ const mutation = useMutation({
       console.log("Book creation result", resp.data);
       toast({
         title: "Creating Book",
-        description: "Successfull"
+        description: resp.data.message
       })
     },
-    onError: (error: any) => {
+    onError: () => {
       //console.error("Error during creating book", error);
       toast({
         title: "Creating Book",
@@ -80,6 +80,8 @@ const mutation = useMutation({
     formData.append("description", values.description);
     formData.append("coverImage", (values.coverImage as FileList)[0]);
     formData.append("bookFiles", (values.file as FileList)[0]);
+
+    values.title=""
 
     console.log(formData);
     mutation.mutate(formData)

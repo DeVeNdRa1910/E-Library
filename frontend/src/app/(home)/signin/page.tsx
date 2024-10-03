@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/store/features/hooks/hooks";
 import { addUser } from "@/lib/store/features/users/usersSlice";
+import { setCookie } from 'cookies-next';
 
 function SignIn() {
   const { toast } = useToast();
@@ -44,7 +45,7 @@ function SignIn() {
           title: "Login",
           description: resp.data.message as string,
         });
-        localStorage.setItem("token", resp.data.data);
+        localStorage.setItem('token', resp.data.data );
         router.push("/");
       }
 

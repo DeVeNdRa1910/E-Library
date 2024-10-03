@@ -74,7 +74,7 @@ export async function createBook(
 
     return res.status(201).json({ 
       id: newBook._id,
-      message: "Book Uploaded Successful",
+      message: "Book Uploaded Successfully",
       bookUploadResp
     });
 

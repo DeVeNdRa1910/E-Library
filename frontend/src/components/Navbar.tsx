@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./DarkMode";
 import {
@@ -8,6 +8,7 @@ import {
 } from "@/lib/store/features/hooks/hooks";
 import { Button } from "./ui/button";
 import { removeUser } from "@/lib/store/features/users/usersSlice";
+import { deleteCookie, getCookie } from 'cookies-next';
 
 // Define the type for the product
 interface Product {
@@ -21,12 +22,16 @@ interface Product {
 
 function Navbar() {
   const dispatch = useAppDispatch();
+  const [token, setToken] = useState<string | null>("");
 
-  const token = localStorage.getItem('token')
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+  }, []);
 
   const handleLogout = () => {
     dispatch(removeUser());
-    localStorage.removeItem("token");
+    localStorage.removeItem('token')
   };
 
   return (

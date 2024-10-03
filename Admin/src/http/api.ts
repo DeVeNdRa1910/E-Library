@@ -24,7 +24,8 @@ api.interceptors.request.use((config) => {
 });
 
 export const login = async (data: { email: string; password: string }) => {
-  return api.post("/api/users/login", data);
+  const resp = await api.post("/api/users/login", data);
+  return resp;
 };
 
 export const register = async (data: {
@@ -33,11 +34,13 @@ export const register = async (data: {
   password: string;
   role: string;
 }) => {
-  return api.post("/api/users/register", data);
+  const resp = await api.post("/api/users/register", data);
+  return resp;
 };
 
 export const getBooks = async () => {
-  return api.get("/api/books/get-all-books");
+  const resp = await api.get("/api/books/get-all-books");
+  return resp;
 };
 
 export const createBooks = async (data: any) => {
@@ -46,11 +49,11 @@ export const createBooks = async (data: any) => {
       "Content-Type": "multipart/form-data", // Important for file uploads
     },
   });
-  return resp.data;
+  return resp;
 };
 
 export const deleteBook = async (id: string) => {
   alert(`Delete ${id}`)
   const resp = await api.delete(`/api/books/delete/${id}`);
-  return resp.data;
+  return resp;
 };

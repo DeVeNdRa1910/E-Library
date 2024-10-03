@@ -9,8 +9,8 @@ const app = express();
 
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL_ONE,
-  process.env.FRONTEND_URL_TWO     // Frontend URL 2
+  config.frontend_one,
+  config.frontend_two    // Frontend URL 2
 ];
 
 app.use(express.json())  // post(or get) all data from DB

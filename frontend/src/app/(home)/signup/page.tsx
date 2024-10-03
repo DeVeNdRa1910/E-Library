@@ -5,6 +5,7 @@ import SignUpForm, { FormValuse } from "./components/sign-up-form";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 function SignUp() {
   const { toast } = useToast();
@@ -24,6 +25,7 @@ function SignUp() {
           name: values.name,
           email: values.email,
           password: values.password,
+          role: 'user'
         },
         {
           withCredentials: true,
@@ -40,7 +42,7 @@ function SignUp() {
           title: "Login",
           description: resp.data.message as string,
         });
-        localStorage.setItem("token", resp.data.data);
+        localStorage.setItem('token', resp.data.data );
         router.push("/");
       }
     } catch (error) {
