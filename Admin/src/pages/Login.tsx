@@ -28,13 +28,13 @@ function Login() {
     mutationFn: login,
     onSuccess: (resp: any) => {
       console.log("User Data", resp.data);
-      console.log("Token from response", resp.data.data);
+      // console.log("Token from response", resp.data.data);
       
       toast({
         title: "Authentication",
         description: "Login successful",
       });
-      localStorage.setItem("token", resp.data.data);
+      sessionStorage.setItem("token", resp.data.data);
       Cookies.set('token', resp.data.data, { expires: 1 , path: '/'}); //store token in cookie storage
       /* 
       const token = Cookies.get('token'); // to get token

@@ -1,6 +1,6 @@
-import { getBooks } from "@/http/api";
-import { useQuery } from "react-query";
-import { MoreHorizontal, Loader } from "lucide-react";
+import { deleteBook, getBooks } from "@/http/api";
+import { useMutation, useQuery } from "react-query";
+import { MoreHorizontal, Loader, CloudCog } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -33,8 +33,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookType } from "@/types";
+import { useToast } from "@/hooks/use-toast";
 
 function Book() {
   const { data, isLoading, isError, error } = useQuery({
@@ -49,13 +50,34 @@ function Book() {
 
   if (isError) {
     console.log(error);
-    
     return <div>Error: Something went wrong</div>;
   }
 
+  const { toast } = useToast()
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: deleteBook,
+    onSuccess: (resp: any)=>{
+      console.log(resp.data);
+      toast({
+        title: "Delete Book",
+        description: "Successfull"
+      })
+      
+      navigate('/books')
+    },
+    onError: (error: any) => {
+      //console.log("Error ducring Deleting Book", error);
+      toast({
+        title: "Delete Book",
+        description: "Failed"
+      })
+    }
+  })
+
   function deleteBookHandler(id: string) {
-    alert(`Book Deleted ${id}`);
     
+    mutation.mutate(id)
   }
 
   return (

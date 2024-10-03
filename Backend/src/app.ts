@@ -16,12 +16,12 @@ const allowedOrigins = [
 app.use(express.json())  // post(or get) all data from DB
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors({
-  origin: function (origin, callback) {
-    // Check if the origin is in the allowedOrigins array or if it's undefined (for non-browser requests)
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
+  origin: (origin, callback) => {
+    // Agar origin undefined hai (kuch tools jaise Postman se aa raha hai to `null` consider karega)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Request allow karo
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS')); // Request ko block karo
     }
   },
   credentials: true

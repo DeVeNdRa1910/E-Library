@@ -25,7 +25,7 @@ import getToken from "@/lib/getToken";
 function DashboardLayout() {
   const navigate = useNavigate();
   const token = getToken();
-  console.log(token);
+  // console.log(token);
   
   if(token === ""){
     //if user dont have token
@@ -33,7 +33,7 @@ function DashboardLayout() {
   }
   
   const logoutHandler = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     navigate('/auth/login')
     return ;
   }

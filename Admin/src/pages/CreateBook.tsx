@@ -25,13 +25,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { bookSchema } from "@/lib/validators/bookChema";
-import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "react-query";
 import { createBooks } from "@/http/api";
 import { Loader } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
 export type FormValuse = z.input<typeof bookSchema>;
 
 function CreateBook() {
@@ -47,18 +48,29 @@ function CreateBook() {
 
   const coverImageRef = form.register("coverImage");
   const bookFileRef = form.register("file");
+  const {toast} = useToast()
 
-  const mutation = useMutation({
-    mutationFn: createBooks,
+const mutation = useMutation({
+    mutationKey: ['Create-Book'],
+    mutationFn: (data: FormData) => createBooks(data),
     onSuccess: (resp: any) => {
       console.log("Book creation result", resp.data);
+      toast({
+        title: "Creating Book",
+        description: "Successfull"
+      })
     },
+    onError: (error: any) => {
+      //console.error("Error during creating book", error);
+      toast({
+        title: "Creating Book",
+        description: "Failed"
+      })
+    }
   });
 
   const handleFormSubmit = (values: FormValuse) => {
     console.log(values);
-    const cookieToken = Cookies.get('token')
-    console.log( "Cookies Token" ,cookieToken);
 
     const formData = new FormData();
 
@@ -67,10 +79,9 @@ function CreateBook() {
     formData.append("author", values.author);
     formData.append("description", values.description);
     formData.append("coverImage", (values.coverImage as FileList)[0]);
-    formData.append("file", (values.file as FileList)[0]);
+    formData.append("bookFiles", (values.file as FileList)[0]);
 
     console.log(formData);
-    
     mutation.mutate(formData)
   };
 
