@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.ts",
-    "start": "node app.ts"
+    "build": "tsc",
+    "start": "node dist/app.js"
   },
   "keywords": [
     "Rest-API",
@@ -24,7 +25,7 @@
     "globals": "^15.9.0",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
