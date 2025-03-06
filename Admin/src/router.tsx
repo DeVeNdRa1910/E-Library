@@ -4,8 +4,8 @@ import Home from "@/pages/Home";
 import Book from "./pages/Book";
 import Register from "./pages/Register";
 import DashboardLayout from "./layouts/DashboardLayout";
-import AuthLayout from "./layouts/AuthLayout";
-import CreateBook from "./pages/createBook";
+import AuthLayout from "./layouts/AuthLayout.tsx";
+import CreateBook from "./pages/CreateBook";
 
 const router = createBrowserRouter([
   {

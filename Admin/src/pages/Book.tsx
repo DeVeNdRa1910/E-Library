@@ -54,8 +54,8 @@ function Book() {
   });
 
   // staleTime ka matlab apicall kitne time ke baad karvaani hai by default 0 hota hai (har render pr) hamne 1 hr diya hai, lekin real time data like chat app ke liye ye 0 hona chahiye
-
-  const books = data?.data?.data;
+  console.log(data);
+  const books = data?.data;
 
   const booksPerPage = 10; // Number of books per page
   const [currentPage, setCurrentPage] = useState(1); // State for current page
@@ -93,7 +93,7 @@ function Book() {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: deleteBook,
-    onSuccess: (resp: any) => {
+    onSuccess: (resp) => {
       console.log(resp.data);
       toast({
         title: "Delete Book",
@@ -102,8 +102,8 @@ function Book() {
 
       navigate("/books");
     },
-    onError: (error: any) => {
-      //console.log("Error ducring Deleting Book", error);
+    onError: (error) => {
+      console.log("Error ducring Deleting Book", error);
       toast({
         title: "Delete Book",
         description: "Failed",

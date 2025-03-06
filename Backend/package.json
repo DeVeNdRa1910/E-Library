@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "this backend server for e-book-library",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.ts",
-    "start": "npx ts-node server.ts"
+    "dev": "nodemon app.ts",
+    "start": "node app.ts"
   },
   "keywords": [
     "Rest-API",

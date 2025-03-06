@@ -40,10 +40,10 @@ export const register = async (data: {
 
 export const getBooks = async () => {
   const resp = await api.get("/api/books/get-all-books");
-  return resp;
+  return resp.data;
 };
 
-export const createBooks = async (data: any) => {
+export const createBooks = async (data: FormData) => {
   const resp = await api.post("/api/books/create", data, {
     headers: {
       "Content-Type": "multipart/form-data", // Important for file uploads
